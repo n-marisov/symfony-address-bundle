@@ -24,7 +24,7 @@
 
         <field name="kladr" length="19" nullable="true"/>
 
-        <many-to-one field="location" target-entity="Maris\Symfony\Location\Entity\Location">
+        <many-to-one field="location" target-entity="Maris\Symfony\Geo\Entity\Location">
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
