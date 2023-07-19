@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <!--<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">-->
+
+
+    <!-- Реализует собой компоненты адреса -->
+    <entity name="Maris\Symfony\Address\Entity\Component"  table="address_components" inheritance-type="SINGLE_TABLE" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
+
+        <discriminator-column name="view" length="16" type="string" />
+
+        <discriminator-map>
+            <discriminator-mapping value="COUNTRY" class="Maris\Symfony\Address\Entity\Country"/>
+            <discriminator-mapping value="FEDERAL_DISTRICT" class="Maris\Symfony\Address\Entity\FederalDistrict"/>
+            <discriminator-mapping value="REGION" class="Maris\Symfony\Address\Entity\Region"/>
+            <discriminator-mapping value="AREA" class="Maris\Symfony\Address\Entity\Area"/>
+            <discriminator-mapping value="SUB_AREA" class="Maris\Symfony\Address\Entity\SubArea"/>
+            <discriminator-mapping value="CITY" class="Maris\Symfony\Address\Entity\City"/>
+            <discriminator-mapping value="CITY_DISTRICT" class="Maris\Symfony\Address\Entity\CityDistrict"/>
+            <discriminator-mapping value="SETTLEMENT" class="Maris\Symfony\Address\Entity\Settlement"/>
+            <discriminator-mapping value="STREET" class="Maris\Symfony\Address\Entity\Street"/>
+            <discriminator-mapping value="STEAD" class="Maris\Symfony\Address\Entity\Stead"/>
+            <discriminator-mapping value="HOUSE" class="Maris\Symfony\Address\Entity\House"/>
+            <discriminator-mapping value="BLOCK" class="Maris\Symfony\Address\Entity\Block"/>
+            <discriminator-mapping value="FLAT" class="Maris\Symfony\Address\Entity\Flat"/>
+            <discriminator-mapping value="ROOM" class="Maris\Symfony\Address\Entity\Room"/>
+        </discriminator-map>
+
+        <discriminator-column name="view"/>
+
+        <id name="id" type="integer" column="id" >
+            <generator />
+        </id>
+
+        <field name="value" length="120" nullable="true" />
+
+        <field name="type" length="10" nullable="true"/>
+
+        <field name="fullType" length="50" nullable="true"/>
+
+        <field name="valueWithType" length="131" nullable="true" />
+
+        <many-to-one field="address" target-entity="Maris\Symfony\Address\Entity\Address" >
+
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+
+            <join-columns>
+                <join-column name="address_id" />
+            </join-columns>
+
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>
