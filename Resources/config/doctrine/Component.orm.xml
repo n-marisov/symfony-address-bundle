@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <!-- Реализует собой компоненты адреса -->
-    <mapped-superclass name="Maris\Symfony\Address\Entity\Component" inheritance-type="SINGLE_TABLE" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
+    <embeddable name="Maris\Symfony\Address\Entity\Component" >
 
         <!--<discriminator-column name="view" length="16" type="string" />
 
@@ -53,6 +53,6 @@
 
         </many-to-one>-->
 
-    </mapped-superclass>
+    </embeddable>
 
 </doctrine-mapping>
