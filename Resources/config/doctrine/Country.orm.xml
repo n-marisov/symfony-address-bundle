@@ -4,10 +4,10 @@
                           https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
     <!-- Реализует собой страну -->
-    <entity name="Maris\Symfony\Address\Entity\Country" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
+    <embeddable name="Maris\Symfony\Address\Entity\Country" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
         <field name="iso" length="6" nullable="true"/>
 
-    </entity>
+    </embeddable>
 
 </doctrine-mapping>

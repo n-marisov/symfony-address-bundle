@@ -4,8 +4,8 @@
                           https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
     <!-- Реализует собой комнату -->
-    <entity name="Maris\Symfony\Address\Entity\Room" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
+    <embeddable name="Maris\Symfony\Address\Entity\Room" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
         <field name="fias" length="36" nullable="true" />
-    </entity>
+    </embeddable>
 
 </doctrine-mapping>

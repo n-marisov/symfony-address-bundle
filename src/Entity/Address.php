@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use Maris\Interfaces\Geo\Aggregate\LocationAggregateInterface;
+use Maris\Interfaces\Geo\Iterator\FeaturesIteratorInterface;
 use Maris\Symfony\Address\Traits\FiasTrait;
 use Maris\Symfony\Address\Traits\KladrTrait;
 use Maris\Symfony\Geo\Embeddable\Model\Entity\Location;
@@ -16,7 +17,7 @@ use Stringable;
  * Итерируемый объект, перебирает компоненты адреса.
  * При приведении к строке возвращает полный юридический адрес.
  */
-class Address implements Stringable, IteratorAggregate, LocationAggregateInterface
+class Address implements Stringable, LocationAggregateInterface
 {
 
     use FiasTrait, KladrTrait ;
@@ -68,14 +69,43 @@ class Address implements Stringable, IteratorAggregate, LocationAggregateInterfa
      * Компоненты адреса
      * @var Collection<Component>
      */
-    protected Collection $components;
+    //protected Collection $components;
+
+
+    protected ?Country $country;
+
+    protected FederalDistrict $federalDistrict;
+
+    protected ?Region $region;
+
+    protected ?Area $area;
+
+    protected SubArea $subArea;
+
+    protected City $city;
+
+    protected CityDistrict $cityDistrict;
+
+    protected Settlement $settlement;
+
+    protected Stead $stead;
+
+    protected Street $street;
+
+    protected House $house;
+
+    protected Block $block;
+
+    protected Flat $flat;
+
+    protected Room $room;
 
     /**
      *
      */
     public function __construct()
     {
-        $this->components = new ArrayCollection();
+        //$this->components = new ArrayCollection();
     }
 
 
@@ -162,17 +192,17 @@ class Address implements Stringable, IteratorAggregate, LocationAggregateInterfa
     /**
      * @return Collection
      */
-    public function getComponents(): Collection
+    /*public function getComponents(): Collection
     {
         return $this->components;
-    }
+    }*/
 
     /**
      * Обновляет компонент
      * @param Component $component
      * @return Address
      */
-    public function setComponent( Component $component ): Address
+    /*public function setComponent( Component $component ): Address
     {
         $component->setAddress( $this );
 
@@ -181,7 +211,7 @@ class Address implements Stringable, IteratorAggregate, LocationAggregateInterfa
                 $this->components->removeElement($item);
         $this->components->add( $component );
         return $this;
-    }
+    }*/
 
     /**
      * @return string|null
@@ -232,10 +262,10 @@ class Address implements Stringable, IteratorAggregate, LocationAggregateInterfa
     /**
      * @return Collection
      */
-    public function getIterator(): Collection
+   /* public function getIterator(): Collection
     {
         return $this->components;
-    }
+    }*/
 }
 
 

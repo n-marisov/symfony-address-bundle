@@ -26,12 +26,31 @@
 
         <embedded name="location" column-prefix="geo_" class="Maris\Symfony\Geo\Embeddable\Model\Entity\Location" />
 
-        <one-to-many field="components" target-entity="Maris\Symfony\Address\Entity\Component" mapped-by="address">
+
+        <embedded name="country" class="Maris\Symfony\Address\Entity\Country" />
+        <embedded name="federalDistrict" class="Maris\Symfony\Address\Entity\FederalDistrict"/>
+        <embedded name="region" class="Maris\Symfony\Address\Entity\Region"/>
+        <embedded name="area" class="Maris\Symfony\Address\Entity\Area"/>
+        <embedded name="subArea" class="Maris\Symfony\Address\Entity\SubArea"/>
+        <embedded name="city" class="Maris\Symfony\Address\Entity\City"/>
+        <embedded name="cityDistrict" class="Maris\Symfony\Address\Entity\CityDistrict"/>
+        <embedded name="settlement" class="Maris\Symfony\Address\Entity\Settlement"/>
+        <embedded name="stead" class="Maris\Symfony\Address\Entity\Stead"/>
+        <embedded name="street" class="Maris\Symfony\Address\Entity\Street"/>
+        <embedded name="house" class="Maris\Symfony\Address\Entity\House"/>
+        <embedded name="block" class="Maris\Symfony\Address\Entity\Block"/>
+        <embedded name="room" class="Maris\Symfony\Address\Entity\Room"/>
+        <embedded name="flat" class="Maris\Symfony\Address\Entity\Flat"/>
+
+
+
+
+        <!--<one-to-many field="components" target-entity="Maris\Symfony\Address\Entity\Component" mapped-by="address">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-        </one-to-many>
+        </one-to-many>-->
 
     </entity>
 

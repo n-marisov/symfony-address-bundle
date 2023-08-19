@@ -4,7 +4,7 @@
                           https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
     <!-- Реализует собой регион -->
-    <entity name="Maris\Symfony\Address\Entity\Region" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
+    <embeddable name="Maris\Symfony\Address\Entity\Region" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
 
         <field name="iso" length="6" nullable="true"/>
@@ -12,6 +12,6 @@
         <field name="fias" length="36" nullable="true"/>
         <field name="kladr" length="19" nullable="true"/>
 
-    </entity>
+    </embeddable>
 
 </doctrine-mapping>
