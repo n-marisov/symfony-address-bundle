@@ -5,9 +5,10 @@ namespace Maris\Symfony\Address\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
+use Maris\Interfaces\Geo\Aggregate\LocationAggregateInterface;
 use Maris\Symfony\Address\Traits\FiasTrait;
 use Maris\Symfony\Address\Traits\KladrTrait;
-use Maris\Symfony\Geo\Entity\Location;
+use Maris\Symfony\Geo\Embeddable\Model\Entity\Location;
 use Stringable;
 
 /**
@@ -15,7 +16,7 @@ use Stringable;
  * Итерируемый объект, перебирает компоненты адреса.
  * При приведении к строке возвращает полный юридический адрес.
  */
-class Address implements Stringable, IteratorAggregate
+class Address implements Stringable, IteratorAggregate, LocationAggregateInterface
 {
 
     use FiasTrait, KladrTrait ;
@@ -123,9 +124,9 @@ class Address implements Stringable, IteratorAggregate
     }
 
     /**
-     * @return Location|null
+     * @return Location
      */
-    public function getLocation(): ?Location
+    public function getLocation(): Location
     {
         return $this->location;
     }

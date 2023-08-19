@@ -24,15 +24,7 @@
 
         <field name="kladr" length="19" nullable="true"/>
 
-        <many-to-one field="location" target-entity="Maris\Symfony\Geo\Entity\Location">
-            <cascade>
-                <cascade-persist />
-                <cascade-remove />
-            </cascade>
-            <join-columns>
-                <join-column name="location_id" />
-            </join-columns>
-        </many-to-one>
+        <embedded name="location" column-prefix="geo_" class="Maris\Symfony\Geo\Embeddable\Model\Entity\Location" />
 
         <one-to-many field="components" target-entity="Maris\Symfony\Address\Entity\Component" mapped-by="address">
             <cascade>
