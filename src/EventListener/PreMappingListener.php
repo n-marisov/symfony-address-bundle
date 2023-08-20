@@ -47,9 +47,6 @@ class PreMappingListener
         "postal_code" => "postalIndex",
         "postal_box" => "postalBox",
 
-        "geo_lat" => "location.latitude",
-        "geo_lon" => "location.longitude",
-
 
         "fias_id" => "fias",
         "region_fias_id" => "region.fias",
@@ -190,7 +187,7 @@ class PreMappingListener
             self::MAPPING_FIELDS["flat_with_type"],
         ],
 
-        "location" =>[ self::MAPPING_FIELDS["geo_lat"], self::MAPPING_FIELDS["geo_lon"] ],
+        "location" =>[ "location.latitude", "location.longitude" ],
 
         "country" =>[ "country.value", self::MAPPING_FIELDS["country_iso_code"] ],
 
@@ -307,22 +304,42 @@ class PreMappingListener
             return;
 
         # Удаляем поля по названию ключа в БД.
+        $this->removedFields( $meta );
+
+        # Удаляем группы полей.
+        $this->removedGroupFields( $meta );
+
+        # Переименовываем поля, которые остались
+        $this->columnNamesUpdate( $meta );
+
+        dump( $meta );
+    }
+
+    /***
+     * Удаляет поля по названию колонки.
+     * @param ClassMetadata $meta
+     * @return void
+     */
+    protected function removedFields( ClassMetadata $meta ):void
+    {
         foreach (self::MAPPING_FIELDS as $field => $key )
             if( in_array( $field, $this->mappingExclude) && isset( $meta->fieldMappings[$key] ))
                 unset($meta->fieldMappings[ $key ]);
+    }
 
-        # Удаляем группы полей.
+    /**
+     * Удаляет группы полей.
+     * @param ClassMetadata $meta
+     * @return void
+     */
+    protected function removedGroupFields( ClassMetadata $meta ):void
+    {
         foreach (self::MAPPING_UNION as $exclude => $fieldList)
             if( in_array( $exclude, $this->mappingExclude) )
                 foreach ($fieldList as $key)
                     if(isset($meta->fieldMappings[ $key ]))
                         unset($meta->fieldMappings[ $key ]);
-
-        $this->columnNamesUpdate( $meta );
-
-        dump( $meta->fieldMappings );
     }
-
 
     /***
      * Обновляет названия колонок в базе данных.
