@@ -4,6 +4,7 @@ namespace Maris\Symfony\Address\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Maris\Symfony\Address\Entity\Address;
 
@@ -11,7 +12,7 @@ use Maris\Symfony\Address\Entity\Address;
  * Изменяем сущности исходя из настроек непосредственно
  * перед Mapping.
  */
-#[AsDoctrineListener('loadClassMetadata')]
+//#[AsDoctrineListener( event: Events::loadClassMetadata )]
 class PreMappingListener
 {
     /***

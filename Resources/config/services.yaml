@@ -2,5 +2,9 @@ services:
 
    # Обновление сущностей
    Maris\Symfony\Address\EventListener\PreMappingListener:
+      tags:
+         name: 'doctrine.event_listener'
+         event: 'loadClassMetadata'
+
       arguments:
          $mappingExclude: '%address.model.exclude%'
