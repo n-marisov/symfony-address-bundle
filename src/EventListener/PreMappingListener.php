@@ -122,6 +122,18 @@ class PreMappingListener
             "flat.type"
         ],
 
+        "type_full"=>[
+            "region.fullType",
+            "area.fullType",
+            "city.fullType",
+            "cityDistrict.fullType",
+            "settlement.fullType",
+            "street.fullType",
+            "stead.fullType",
+            "house.fullType",
+            "flat.fullType"
+        ],
+
         'with_type' =>[
             "region.valueWithType",
             "area.valueWithType",
