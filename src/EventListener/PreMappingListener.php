@@ -335,7 +335,7 @@ class PreMappingListener
         # Переименовываем поля, которые остались
         $this->columnNamesUpdate( $meta );
 
-        dump( $meta );
+        #dump( $meta );
     }
 
     /***

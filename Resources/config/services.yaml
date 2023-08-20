@@ -1,6 +1,6 @@
 services:
 
-   # Обновление сущностей
+   # Событие настройки сопоставления сущности.
    Maris\Symfony\Address\EventListener\PreMappingListener:
       arguments:
          $mappingExclude: '%address.model.exclude%'
@@ -9,3 +9,4 @@ services:
          -
             name: 'doctrine.event_listener'
             event: 'loadClassMetadata'
+
