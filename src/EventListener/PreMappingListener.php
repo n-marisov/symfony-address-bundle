@@ -15,6 +15,27 @@ use Maris\Symfony\Address\Entity\Address;
 //#[AsDoctrineListener( event: Events::loadClassMetadata , priority: 100, connection: "default" )]
 class PreMappingListener
 {
+
+    /***
+     * Поля для обновления названия столбцов.
+     */
+    protected const MAPPING_UPDATE_COLUMN_NAME = [
+        "location.latitude" => "geo_lat",
+        "location.longitude" => "geo_lon",
+        "country.value" => "country",
+        "federalDistrict.value" => "federal_district",
+        "region.value" => "region",
+        "area.value" => "area",
+        "city.value" => "city",
+        "cityDistrict.value" => "city_district",
+        "settlement.value" => "settlement",
+        "street.value" => "street",
+        "stead.value" => "stead",
+        "house.value" => "house",
+        "block.value" => "block",
+        "flat.value" => "flat",
+    ];
+
     /**
      * Константа с полями, где ключ название в базе данных,
      * а значение ключ в meta->fieldMappings
@@ -90,11 +111,27 @@ class PreMappingListener
         ],
 
         "type"=>[
-
+            "region.type",
+            "area.type",
+            "city.type",
+            "cityDistrict.type",
+            "settlement.type",
+            "street.type",
+            "stead.type",
+            "house.type",
+            "flat.type"
         ],
 
         'with_type' =>[
-
+            "region.valueWithType",
+            "area.valueWithType",
+            "city.valueWithType",
+            "cityDistrict.valueWithType",
+            "settlement.valueWithType",
+            "street.valueWithType",
+            "stead.valueWithType",
+            "house.valueWithType",
+            "flat.valueWithType"
         ]
 
     ];
@@ -141,7 +178,22 @@ class PreMappingListener
                     if(isset($meta->fieldMappings[ $key ]))
                         unset($meta->fieldMappings[ $key ]);
 
+        $this->columnNamesUpdate( $meta );
+
         dump( $meta->fieldMappings );
+    }
+
+
+    /***
+     * Обновляет названия колонок в базе данных.
+     * @param ClassMetadata $meta
+     * @return void
+     */
+    protected function columnNamesUpdate( ClassMetadata $meta ):void
+    {
+        foreach (self::MAPPING_UPDATE_COLUMN_NAME as $metaKey => $columName )
+            if(isset( $meta->fieldMappings[$metaKey] ))
+                $meta->fieldMappings[$metaKey]["columnName"] = $columName;
     }
 
 }
