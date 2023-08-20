@@ -6,8 +6,11 @@
     <!-- Реализует собой дом или земельный участок -->
     <embeddable name="Maris\Symfony\Address\Entity\Block" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+        <!-- Короткое название типа корпус/строение. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа корпус/строение. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
 
     </embeddable>
 

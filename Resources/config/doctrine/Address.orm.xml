@@ -8,49 +8,74 @@
 
         <id name="id" type="integer" column="id">
             <generator/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
         </id>
 
-        <field name="title" />
+        <!-- Короткий адрес. -->
+        <field name="value" />
 
-        <field name="unrestricted" />
+        <!-- Полный юридический адрес. -->
+        <field name="unrestricted" column="unrestricted_value" />
 
-        <field name="postal" length="6" nullable="true" />
+        <!-- Почтовый индекс -->
+        <field name="postalIndex" column="postal_code" length="6" nullable="true" />
 
-        <field name="okato" length="11" nullable="true" />
+        <!-- Почтовый ящик -->
+        <field name="postalBox" column="postal_box" length="50" nullable="true" />
 
-        <field name="oktmo" length="11" nullable="true" />
+        <!-- Код-ОКАТО -->
+        <field name="okato" column="okato" length="11" nullable="true" />
 
-        <field name="fias" length="36" nullable="true"/>
+        <!-- Код-ОКТМО -->
+        <field name="oktmo" column="oktmo" length="11" nullable="true" />
 
-        <field name="kladr" length="19" nullable="true"/>
+        <!-- Код-ФИАС -->
+        <field name="fias" column="fias_id" length="36" nullable="true"/>
 
+        <!-- Код-КЛАДР -->
+        <field name="kladr" column="kladr_id" length="19" nullable="true"/>
+
+        <!-- Географические координаты адреса. -->
         <embedded name="location" column-prefix="geo_" class="Maris\Symfony\Geo\Embeddable\Model\Entity\Location" />
 
+        <!-- Страна. -->
+        <embedded name="country" column-prefix="country" class="Maris\Symfony\Address\Entity\Country" />
 
-        <embedded name="country" class="Maris\Symfony\Address\Entity\Country" />
-        <embedded name="federalDistrict" class="Maris\Symfony\Address\Entity\FederalDistrict"/>
-        <embedded name="region" class="Maris\Symfony\Address\Entity\Region"/>
-        <embedded name="area" class="Maris\Symfony\Address\Entity\Area"/>
-        <embedded name="subArea" class="Maris\Symfony\Address\Entity\SubArea"/>
-        <embedded name="city" class="Maris\Symfony\Address\Entity\City"/>
-        <embedded name="cityDistrict" class="Maris\Symfony\Address\Entity\CityDistrict"/>
-        <embedded name="settlement" class="Maris\Symfony\Address\Entity\Settlement"/>
-        <embedded name="stead" class="Maris\Symfony\Address\Entity\Stead"/>
-        <embedded name="street" class="Maris\Symfony\Address\Entity\Street"/>
-        <embedded name="house" class="Maris\Symfony\Address\Entity\House"/>
-        <embedded name="block" class="Maris\Symfony\Address\Entity\Block"/>
-        <embedded name="room" class="Maris\Symfony\Address\Entity\Room"/>
-        <embedded name="flat" class="Maris\Symfony\Address\Entity\Flat"/>
+        <!-- Федеральный округ. -->
+        <embedded name="federalDistrict" column-prefix="federal_district" class="Maris\Symfony\Address\Entity\FederalDistrict"/>
 
+        <!-- Регион. -->
+        <embedded name="region" column-prefix="region" class="Maris\Symfony\Address\Entity\Region"/>
 
+        <!-- Район в регионе. -->
+        <embedded name="area" column-prefix="area" class="Maris\Symfony\Address\Entity\Area"/>
 
+        <!-- Город. -->
+        <embedded name="city" column-prefix="city" class="Maris\Symfony\Address\Entity\City"/>
 
-        <!--<one-to-many field="components" target-entity="Maris\Symfony\Address\Entity\Component" mapped-by="address">
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
-        </one-to-many>-->
+        <!-- Район города. -->
+        <embedded name="cityDistrict" column-prefix="city_district" class="Maris\Symfony\Address\Entity\CityDistrict"/>
+
+        <!-- Населенный пункт. -->
+        <embedded name="settlement" column-prefix="settlement" class="Maris\Symfony\Address\Entity\Settlement"/>
+
+        <!-- Улица. -->
+        <embedded name="street" column-prefix="street" class="Maris\Symfony\Address\Entity\Street"/>
+
+        <!-- Земельный участок. -->
+        <embedded name="stead" column-prefix="stead" class="Maris\Symfony\Address\Entity\Stead"/>
+
+        <!-- Дом. -->
+        <embedded name="house" column-prefix="house" class="Maris\Symfony\Address\Entity\House"/>
+
+        <!-- Корпус/Строение. -->
+        <embedded name="block" column-prefix="block" class="Maris\Symfony\Address\Entity\Block"/>
+
+        <!-- Квартира. -->
+        <embedded name="flat" column-prefix="flat" class="Maris\Symfony\Address\Entity\Flat"/>
+
 
     </entity>
 

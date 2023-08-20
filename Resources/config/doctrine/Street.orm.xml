@@ -6,8 +6,20 @@
     <!-- Реализует собой улицу -->
     <embeddable name="Maris\Symfony\Address\Entity\Street" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+        <!-- ФИАС-код улицы. -->
+        <field name="fias" column="_fias_id" length="36" nullable="true"/>
+
+        <!-- КЛАДР-код улицы. -->
+        <field name="kladr" column="_kladr_id" length="19" nullable="true"/>
+
+        <!-- Короткое название типа улицы. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа улицы. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
+
+        <!-- Улица с сокращенным типом. -->
+        <field name="valueWithType" column="_with_type" length="131" nullable="true" />
 
     </embeddable>
 

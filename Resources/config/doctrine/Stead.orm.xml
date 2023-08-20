@@ -5,8 +5,19 @@
 
     <!-- Реализует собой земельный участок -->
     <embeddable name="Maris\Symfony\Address\Entity\Stead" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+
+        <!-- ФИАС-код земельного участка. -->
+        <field name="fias" column="_fias_id" length="36" nullable="true"/>
+
+        <!-- КЛАДР-код земельного участка. -->
+        <field name="kladr" column="_kladr_id" length="19" nullable="true"/>
+
+        <!-- Короткое название типа земельного участка. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа земельного участка. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
+
     </embeddable>
 
 </doctrine-mapping>

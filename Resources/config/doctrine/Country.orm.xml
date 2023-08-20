@@ -6,7 +6,8 @@
     <!-- Реализует собой страну -->
     <embeddable name="Maris\Symfony\Address\Entity\Country" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
-        <field name="iso" length="6" nullable="true"/>
+        <!-- Двух-символьный ISO-код страны -->
+        <field name="iso" column="_iso_code" length="2" nullable="true"/>
 
     </embeddable>
 

@@ -6,8 +6,14 @@
     <!-- Информация о квартире -->
     <embeddable name="Maris\Symfony\Address\Entity\Flat" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+        <!-- ФИАС-код квартиры. -->
+        <field name="fias" column="_fias_id" length="36" nullable="true"/>
+
+        <!-- Короткое название типа квартиры. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа квартиры. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
 
     </embeddable>
 

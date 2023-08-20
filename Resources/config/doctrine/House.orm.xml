@@ -6,8 +6,17 @@
     <!-- Реализует собой дом или земельный участок -->
     <embeddable name="Maris\Symfony\Address\Entity\House" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
 
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+        <!-- ФИАС-код дома. -->
+        <field name="fias" column="_fias_id" length="36" nullable="true"/>
+
+        <!-- КЛАДР-код дома. -->
+        <field name="kladr" column="_kladr_id" length="19" nullable="true"/>
+
+        <!-- Короткое название типа дома. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа дома. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
 
     </embeddable>
 

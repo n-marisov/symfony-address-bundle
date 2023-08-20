@@ -2,36 +2,47 @@
 
 namespace Maris\Symfony\Address\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use IteratorAggregate;
 use Maris\Interfaces\Geo\Aggregate\LocationAggregateInterface;
-use Maris\Interfaces\Geo\Iterator\FeaturesIteratorInterface;
 use Maris\Symfony\Address\Traits\FiasTrait;
 use Maris\Symfony\Address\Traits\KladrTrait;
+use Maris\Symfony\Address\Traits\OkatoTrait;
+use Maris\Symfony\Address\Traits\OktmoTrait;
+use Maris\Symfony\Address\Traits\PostalTrait;
+use Maris\Symfony\Address\Traits\ValueTrait;
 use Maris\Symfony\Geo\Embeddable\Model\Entity\Location;
 use Stringable;
 
 /**
  * Сущность адреса.
- * Итерируемый объект, перебирает компоненты адреса.
  * При приведении к строке возвращает полный юридический адрес.
  */
 class Address implements Stringable, LocationAggregateInterface
 {
-
+    /**
+     * Содержит ФИАС-код адреса для России.
+     * Содержит КЛАДР-код адреса для России.
+     */
     use FiasTrait, KladrTrait ;
 
+    /***
+     * Хранит код ОКАТО.
+     * Хранит код ОКТМО.
+     */
+    use OkatoTrait, OktmoTrait;
+
+    /***
+     * Почтовые данные адреса.
+     */
+    use PostalTrait;
+
+    /***
+     * Хранит короткий адрес.
+     */
+    use ValueTrait;
     /**
      * @var int|null
      */
     protected ?int $id = null;
-
-    /**
-     * Короткий адрес
-     * @var string
-     */
-    protected string $title;
 
     /**
      * Полный юридический адрес с почтовым индексом
@@ -45,69 +56,77 @@ class Address implements Stringable, LocationAggregateInterface
      */
     protected ?Location $location = null;
 
+    /**
+     * Страна.
+     * @var Country|null
+     */
+    protected ?Country $country = null;
+
+    /**
+     * Федеральный округ для России.
+     * @var FederalDistrict|null
+     */
+    protected ?FederalDistrict $federalDistrict = null;
+
     /***
-     * Почтовый индекс.
-     * Хранится как строка потому что,
-     * существуют индексы которые, начинаются с 0.
-     * @var string|null
+     * Регион.
+     * @var Region|null
      */
-    protected ?string $postal = null;
+    protected ?Region $region = null;
 
     /**
-     * Код ОКАТО
-     * @var string|null
+     * Район в регионе.
+     * @var Area|null
      */
-    protected ?string $okato = null;
+    protected ?Area $area = null;
 
     /**
-     * Код ОКТМО
-     * @var string|null
+     * Город.
+     * @var City|null
      */
-    protected ?string $oktmo = null;
+    protected ?City $city = null;
 
     /**
-     * Компоненты адреса
-     * @var Collection<Component>
+     * Район города.
+     * @var CityDistrict|null
      */
-    //protected Collection $components;
-
-
-    protected ?Country $country;
-
-    protected FederalDistrict $federalDistrict;
-
-    protected ?Region $region;
-
-    protected ?Area $area;
-
-    protected SubArea $subArea;
-
-    protected City $city;
-
-    protected CityDistrict $cityDistrict;
-
-    protected Settlement $settlement;
-
-    protected Stead $stead;
-
-    protected Street $street;
-
-    protected House $house;
-
-    protected Block $block;
-
-    protected Flat $flat;
-
-    protected Room $room;
+    protected ?CityDistrict $cityDistrict = null;
 
     /**
-     *
+     * Населенный пункт.
+     * @var Settlement|null
      */
-    public function __construct()
-    {
-        //$this->components = new ArrayCollection();
-    }
+    protected ?Settlement $settlement = null;
 
+    /**
+     * Улица.
+     * @var Street|null
+     */
+    protected ?Street $street = null;
+
+    /***
+     * Земельный участок.
+     * @var Stead|null
+     */
+    protected ?Stead $stead = null;
+
+    /**
+     * Дом.
+     * @var House|null
+     */
+    protected ?House $house = null;
+
+    /**
+     * Корпус/Строение.
+     * @var Block|null
+     */
+    protected ?Block $block = null;
+
+    /**
+     * Квартира.
+     * @var Flat|null
+     */
+    protected ?Flat $flat = null;
 
     /**
      * @return int|null
@@ -115,24 +134,6 @@ class Address implements Stringable, LocationAggregateInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     * @return Address
-     */
-    public function setTitle(string $title): Address
-    {
-        $this->title = $title;
-        return $this;
     }
 
     /**
@@ -172,84 +173,220 @@ class Address implements Stringable, LocationAggregateInterface
     }
 
     /**
-     * @return string|null
+     * @return Country|null
      */
-    public function getPostal(): ?string
+    public function getCountry(): ?Country
     {
-        return $this->postal;
+        return $this->country;
     }
 
     /**
-     * @param string|null $postal
-     * @return Address
+     * @param Country|null $country
+     * @return $this
      */
-    public function setPostal(?string $postal): Address
+    public function setCountry(?Country $country): self
     {
-        $this->postal = $postal;
+        $this->country = $country;
         return $this;
     }
 
     /**
-     * @return Collection
+     * @return FederalDistrict
      */
-    /*public function getComponents(): Collection
+    public function getFederalDistrict(): FederalDistrict
     {
-        return $this->components;
-    }*/
-
-    /**
-     * Обновляет компонент
-     * @param Component $component
-     * @return Address
-     */
-    /*public function setComponent( Component $component ): Address
-    {
-        $component->setAddress( $this );
-
-        foreach ($this->components as $item)
-            if( $item::class == $component::class )
-                $this->components->removeElement($item);
-        $this->components->add( $component );
-        return $this;
-    }*/
-
-    /**
-     * @return string|null
-     */
-    public function getOkato(): ?string
-    {
-        return $this->okato;
+        return $this->federalDistrict;
     }
 
     /**
-     * @param string|null $okato
-     * @return Address
+     * @param FederalDistrict $federalDistrict
+     * @return $this
      */
-    public function setOkato(?string $okato): Address
+    public function setFederalDistrict(FederalDistrict $federalDistrict): self
     {
-        $this->okato = $okato;
+        $this->federalDistrict = $federalDistrict;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return Region|null
      */
-    public function getOktmo(): ?string
+    public function getRegion(): ?Region
     {
-        return $this->oktmo;
+        return $this->region;
     }
 
     /**
-     * @param string|null $oktmo
-     * @return Address
+     * @param Region|null $region
+     * @return $this
      */
-    public function setOktmo(?string $oktmo): Address
+    public function setRegion(?Region $region): self
     {
-        $this->oktmo = $oktmo;
+        $this->region = $region;
         return $this;
     }
 
+    /**
+     * @return Area|null
+     */
+    public function getArea(): ?Area
+    {
+        return $this->area;
+    }
 
+    /**
+     * @param Area|null $area
+     * @return $this
+     */
+    public function setArea(?Area $area): self
+    {
+        $this->area = $area;
+        return $this;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity(): City
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function setCity(City $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return CityDistrict
+     */
+    public function getCityDistrict(): CityDistrict
+    {
+        return $this->cityDistrict;
+    }
+
+    /**
+     * @param CityDistrict $cityDistrict
+     * @return $this
+     */
+    public function setCityDistrict(CityDistrict $cityDistrict): self
+    {
+        $this->cityDistrict = $cityDistrict;
+        return $this;
+    }
+
+    /**
+     * @return Settlement
+     */
+    public function getSettlement(): Settlement
+    {
+        return $this->settlement;
+    }
+
+    /**
+     * @param Settlement $settlement
+     * @return $this
+     */
+    public function setSettlement(Settlement $settlement): self
+    {
+        $this->settlement = $settlement;
+        return $this;
+    }
+
+    /**
+     * @return Stead
+     */
+    public function getStead(): Stead
+    {
+        return $this->stead;
+    }
+
+    /**
+     * @param Stead $stead
+     * @return $this
+     */
+    public function setStead(Stead $stead): self
+    {
+        $this->stead = $stead;
+        return $this;
+    }
+
+    /**
+     * @return Street
+     */
+    public function getStreet(): Street
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param Street $street
+     * @return $this
+     */
+    public function setStreet(Street $street): self
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+    /**
+     * @return House
+     */
+    public function getHouse(): House
+    {
+        return $this->house;
+    }
+
+    /**
+     * @param House $house
+     * @return $this
+     */
+    public function setHouse(House $house): self
+    {
+        $this->house = $house;
+        return $this;
+    }
+
+    /**
+     * @return Block
+     */
+    public function getBlock(): Block
+    {
+        return $this->block;
+    }
+
+    /**
+     * @param Block $block
+     * @return $this
+     */
+    public function setBlock(Block $block): self
+    {
+        $this->block = $block;
+        return $this;
+    }
+
+    /**
+     * @return Flat
+     */
+    public function getFlat(): Flat
+    {
+        return $this->flat;
+    }
+
+    /**
+     * @param Flat $flat
+     * @return $this
+     */
+    public function setFlat(Flat $flat): self
+    {
+        $this->flat = $flat;
+        return $this;
+    }
 
     /**
      * @return string
@@ -258,25 +395,4 @@ class Address implements Stringable, LocationAggregateInterface
     {
         return $this->unrestricted;
     }
-
-    /**
-     * @return Collection
-     */
-   /* public function getIterator(): Collection
-    {
-        return $this->components;
-    }*/
 }
-
-
-/***
-Все тарифы
-
-data.qc_geo	Код точности координат:
-0 — точные координаты
-1 — ближайший дом
-2 — улица
-3 — населенный пункт
-4 — город
-5 — координаты не определены
- */

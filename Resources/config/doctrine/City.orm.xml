@@ -5,8 +5,21 @@
 
     <!-- Реализует собой город -->
     <embeddable name="Maris\Symfony\Address\Entity\City" repository-class="Maris\Symfony\Address\Repository\ComponentRepository">
-        <field name="fias" length="36" nullable="true"/>
-        <field name="kladr" length="19" nullable="true"/>
+
+        <!-- ФИАС-код города. -->
+        <field name="fias" column="_fias_id" length="36" nullable="true"/>
+
+        <!-- КЛАДР-код города. -->
+        <field name="kladr" column="_kladr_id" length="19" nullable="true"/>
+
+        <!-- Короткое название типа города. -->
+        <field name="type" column="_type" length="10" nullable="true"/>
+
+        <!-- Полное название типа города. -->
+        <field name="fullType" column="_type_full" length="50" nullable="true"/>
+
+        <!-- Город с сокращенным типом. -->
+        <field name="valueWithType" column="_with_type" length="131" nullable="true" />
     </embeddable>
 
 </doctrine-mapping>
