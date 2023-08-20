@@ -38,6 +38,7 @@ class PreMappingListener
     {
         $meta = $args->getClassMetadata();
 
+        dump($meta->fieldMappings);
         match ($meta->name){
             Address::class => $this->updateAddress( $meta )
         };
@@ -50,7 +51,6 @@ class PreMappingListener
      */
     protected function updateAddress( ClassMetadata $m ):void
     {
-        dump($m->fieldMappings);
         if(in_array("fias",$this->mappingExclude))
             unset($m->fieldMappings["fias_id"]);
 
