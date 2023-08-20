@@ -3,8 +3,8 @@
 namespace Maris\Symfony\Address\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Maris\Symfony\Address\Entity\Address;
 
@@ -38,10 +38,9 @@ class PreMappingListener
     public function __invoke( LoadClassMetadataEventArgs $args ):void
     {
         $meta = $args->getClassMetadata();
-
-        dump($meta->fieldMappings);
         match ($meta->name){
-            Address::class => $this->updateAddress( $meta )
+            Address::class => $this->updateAddress( $meta ),
+            default => null
         };
     }
 
@@ -52,6 +51,9 @@ class PreMappingListener
      */
     protected function updateAddress( ClassMetadata $m ):void
     {
+
+        dump( $m );
+
         if(in_array("fias",$this->mappingExclude))
             unset($m->fieldMappings["fias_id"]);
 
