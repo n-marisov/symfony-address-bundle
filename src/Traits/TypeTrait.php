@@ -7,5 +7,25 @@ namespace Maris\Symfony\Address\Traits;
  */
 trait TypeTrait
 {
+    protected ?string $type = null;
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string|null $type
+     * @return $this
+     */
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
 
 }
