@@ -4,3 +4,8 @@ services:
    Maris\Symfony\Address\EventListener\PreMappingListener:
       arguments:
          $mappingExclude: '%address.model.exclude%'
+
+      tags:
+         -
+            name: 'doctrine.event_listener'
+            event: 'loadClassMetadata'

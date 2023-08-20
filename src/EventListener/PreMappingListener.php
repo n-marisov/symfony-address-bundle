@@ -12,7 +12,7 @@ use Maris\Symfony\Address\Entity\Address;
  * Изменяем сущности исходя из настроек непосредственно
  * перед Mapping.
  */
-#[AsDoctrineListener( event: Events::loadClassMetadata , priority: 100, connection: "default" )]
+//#[AsDoctrineListener( event: Events::loadClassMetadata , priority: 100, connection: "default" )]
 class PreMappingListener
 {
     /***
