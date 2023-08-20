@@ -51,8 +51,18 @@ class PreMappingListener
      */
     protected function updateAddress( ClassMetadata $m ):void
     {
-        if(in_array("fias",$this->mappingExclude))
+        if(in_array("fias",$this->mappingExclude)){
             unset($m->fieldMappings["fias"]);
+            unset($m->fieldMappings["region.fias"]);
+            unset($m->fieldMappings["area.fias"]);
+            unset($m->fieldMappings["city.fias"]);
+            unset($m->fieldMappings["cityDistrict.value"]);
+            unset($m->fieldMappings["settlement.fias"]);
+            unset($m->fieldMappings["street.fias"]);
+            unset($m->fieldMappings["stead.fias"]);
+            unset($m->fieldMappings["house.fias"]);
+            unset($m->fieldMappings["flat.fias"]);
+        }
 
         if(in_array("kladr",$this->mappingExclude))
             unset($m->fieldMappings["kladr"]);
