@@ -16,7 +16,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 # Что исключить из модели
-                ->arrayNode("exclude")->end()
+                ->arrayNode("exclude")
+                    ->scalarPrototype()->end()
+                ->end()
 
             ->end()
         ->end();
