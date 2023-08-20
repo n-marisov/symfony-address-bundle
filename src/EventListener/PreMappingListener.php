@@ -53,7 +53,7 @@ class PreMappingListener
     ];
 
     /***
-     * Массив в котором определены по несколько ячеек
+     * Массив в котором определены по несколько ячеек,
      * которые необходимо удалить при нахождение ключа.
      */
     protected const MAPPING_UNION = [
@@ -88,6 +88,15 @@ class PreMappingListener
             "house.kladr",
             "flat.kladr"
         ],
+
+        "type"=>[
+
+        ],
+
+        'with_type' =>[
+
+        ]
+
     ];
 
 
@@ -131,6 +140,8 @@ class PreMappingListener
                 foreach ($fieldList as $key)
                     if(isset($meta->fieldMappings[ $key ]))
                         unset($meta->fieldMappings[ $key ]);
+
+        dump( $meta->fieldMappings );
     }
 
 }
