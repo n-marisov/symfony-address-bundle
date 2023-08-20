@@ -51,14 +51,11 @@ class PreMappingListener
      */
     protected function updateAddress( ClassMetadata $m ):void
     {
-
-        dump( $m );
-
         if(in_array("fias",$this->mappingExclude))
-            unset($m->fieldMappings["fias_id"]);
+            unset($m->fieldMappings["fias"]);
 
         if(in_array("kladr",$this->mappingExclude))
-            unset($m->fieldMappings["kladr_id"]);
+            unset($m->fieldMappings["kladr"]);
 
         if(in_array("okato",$this->mappingExclude))
             unset($m->fieldMappings["okato"]);
@@ -66,6 +63,7 @@ class PreMappingListener
         if(in_array("oktmo",$this->mappingExclude))
             unset($m->fieldMappings["oktmo"]);
 
+        dump( $m->fieldMappings );
     }
 
 }
