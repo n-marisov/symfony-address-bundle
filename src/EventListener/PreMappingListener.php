@@ -273,6 +273,26 @@ class PreMappingListener
 
     ];
 
+    /***
+     * Массив где в качестве ключа
+     * используется в массиве исключений,
+     * а значение ключ встроенного класса в meta.
+     */
+    protected const MAPPING_EMBEDDED_CLASSES = [
+        "location" => "location",
+        "country" => "country",
+        "federal_district" => "federalDistrict",
+        "region" => "region",
+        "area" => "area",
+        "city" => "city",
+        "city_district" => "cityDistrict",
+        "settlement" => "settlement",
+        "street" => "street",
+        "stead" => "stead",
+        "house" => "house",
+        "block" => "block",
+        "flat" => "flat",
+    ];
 
 
 
@@ -309,6 +329,9 @@ class PreMappingListener
         # Удаляем группы полей.
         $this->removedGroupFields( $meta );
 
+        # Удаляем ненужные встроенные классы.
+        $this->removedEmbeddedClasses( $meta );
+
         # Переименовываем поля, которые остались
         $this->columnNamesUpdate( $meta );
 
@@ -339,6 +362,18 @@ class PreMappingListener
                 foreach ($fieldList as $key)
                     if(isset($meta->fieldMappings[ $key ]))
                         unset($meta->fieldMappings[ $key ]);
+    }
+
+    /***
+     * Удаляем ненужные встроенные классы.
+     * @param ClassMetadata $meta
+     * @return void
+     */
+    protected function removedEmbeddedClasses( ClassMetadata $meta ):void
+    {
+        foreach (self::MAPPING_EMBEDDED_CLASSES as $exclude => $embedded)
+            if( in_array( $exclude, $this->mappingExclude) )
+                unset( $meta->embeddedClasses[ $embedded ] );
     }
 
     /***
