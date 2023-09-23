@@ -3,6 +3,7 @@
 namespace Maris\Symfony\Address\Entity;
 
 use Maris\Interfaces\Geo\Aggregate\LocationAggregateInterface;
+use Maris\Interfaces\Geo\Model\LocationInterface;
 use Maris\Symfony\Address\Traits\FiasTrait;
 use Maris\Symfony\Address\Traits\KladrTrait;
 use Maris\Symfony\Address\Traits\OkatoTrait;
@@ -394,5 +395,10 @@ class Address implements Stringable, LocationAggregateInterface
     public function __toString(): string
     {
         return $this->unrestricted;
+    }
+
+    public function getGeometry(): ?LocationInterface
+    {
+        return $this->location;
     }
 }
