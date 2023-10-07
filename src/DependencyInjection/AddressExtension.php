@@ -18,7 +18,7 @@ class AddressExtension extends Extension
 
         $config = $this->processConfiguration( new Configuration() , $configs );
 
-        $path = realpath( dirname(__DIR__).'/../Resources/config' );
+        $path = realpath(dirname(__DIR__) . '/../Resources/config');
         $loader = new YamlFileLoader( $container, new FileLocator( $path ) );
         $loader->load('services.yaml');
 
