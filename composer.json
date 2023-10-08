@@ -2,7 +2,7 @@
   "name": "maris/symfony-address-bundle",
   "description": "Пакет добавляет возможность сохранения адресов.",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "symfony-bundle",
   "authors": [
     {
