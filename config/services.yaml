@@ -10,3 +10,7 @@ services:
             name: 'doctrine.event_listener'
             event: 'loadClassMetadata'
 
+   Maris\Symfony\Address\Repository\AddressRepository:
+      arguments:
+         $registry: '@doctrine'
+
